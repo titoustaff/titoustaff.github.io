@@ -142,7 +142,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".centre {\ntext-align:center;\n}\n\n.tableaux{\ndisplay:inline-block;\nvertical-align:top;\n}\t"
 
 /***/ }),
 
@@ -153,7 +153,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-inverse\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand\" href=\"#\">Golf Data</a>\n    </div>\n    <ul class=\"nav navbar-nav\" routerLinkActive=\"active\">\n      <li class=\"nav-item\"><a class=\"nav-link\" routerLink=\"home\">Home</a></li>\n      <li class=\"nav-item\" *ngFor=\"let link of links\">\n        <a class=\"nav-link\" [routerLink]=\"link.path\">{{ link.text }}</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn\">\n        <a class=\"nav-link\" routerLink=\"logout\" (click)=\"logout()\">Logout</a>\n      </li>\n    </ul>\n  </div>\n</nav>\n<!-- class=\"container\" -->\n<div >\n  <router-outlet></router-outlet>\n</div>"
+module.exports = "<!-- <nav class=\"navbar navbar-inverse\">\n  <div class=\"container-fluid\">\n    <div class=\"navbar-header\">\n      <a class=\"navbar-brand\" href=\"#\">Golf Data Tournaments</a>\n    </div>\n    <ul class=\"nav navbar-nav\" routerLinkActive=\"active\">\n      <li class=\"nav-item\"><a class=\"nav-link\" routerLink=\"home\">Home</a></li>\n      <li class=\"nav-item\" *ngFor=\"let link of links\">\n        <a class=\"nav-link\" [routerLink]=\"link.path\">{{ link.text }}</a>\n      </li>\n      <li class=\"nav-item\" *ngIf=\"isLoggedIn\">\n        <a class=\"nav-link\" routerLink=\"logout\" (click)=\"logout()\">Logout</a>\n      </li>\n      <li class=\"nav-item \" *ngIf=\"!isLoggedIn\" style=\"text-align: center;\">\n        <input type=\"text\" placeholder=\"Username\" name=\"username\" required >\n      </li>\n      <li class=\"nav-item \" *ngIf=\"!isLoggedIn\" style=\"text-align: center;\">\n      <input type=\"password\" placeholder=\"Password\" name=\"password\" required required >\n      </li>\n      <li class=\"nav-item \" *ngIf=\"!isLoggedIn\" style=\"text-align: center;\">\n        <button class=\"btn btn-primary\" (click)=\"verfiyLogin()\" required >Login</button> \n      </li>\n    </ul>\n  </div>\n</nav> -->\n\n<nav class=\"navbar navbar-inverse\">\n  \n  <div class=\"tableaux\">\n    <a class=\"navbar-brand\" href=\"#\">Golf Data Tournaments</a>\n  </div>\n  \n  <div class=\"tableaux\">\n    <ul class=\"nav navbar-nav\" routerLinkActive=\"active\">\n        <li class=\"nav-item\" *ngFor=\"let link of links\">\n          <a class=\"nav-link\" [routerLink]=\"link.path\">{{ link.text }}</a>\n        </li>\n    </ul>\n\n  </div>\n  \n  <div class=\"tableaux\"  style=\"float: right;\">\n      <input type=\"text\" placeholder=\"Username\" name=\"username\" required *ngIf=\"!isLoggedIn\"><br>\n      <input type=\"password\" placeholder=\"Password\" name=\"password\" required required  *ngIf=\"!isLoggedIn\"><br>\n      \n      <label *ngIf=\"!isLoggedIn\"><input type=\"checkbox\" checked=\"checked\" name=\"remember\" > Remember me</label>.\n      <button class=\"btn btn-primary\" (click)=\"verfiyLogin()\" required *ngIf=\"!isLoggedIn\" >Login</button> \n      <button class=\"btn btn-primary\" routerLink=\"logout\" (click)=\"logout()\" *ngIf=\"isLoggedIn\" >Logout</button> \n  </div>\n</nav>\n<!-- class=\"container\" -->\n<div >\n  <router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
@@ -169,11 +169,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user/user.component */ "./src/app/user/user.component.ts");
-/* harmony import */ var _admin_admin_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./admin/admin.component */ "./src/app/admin/admin.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _atelier_atelier_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./atelier/atelier.component */ "./src/app/atelier/atelier.component.ts");
-/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _atelier_atelier_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./atelier/atelier.component */ "./src/app/atelier/atelier.component.ts");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/authentication.service */ "./src/app/services/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -188,14 +186,17 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-
 var AppComponent = /** @class */ (function () {
-    function AppComponent(router, navbarService) {
+    function AppComponent(router, navbarService, authenticationService) {
         this.router = router;
         this.navbarService = navbarService;
+        this.authenticationService = authenticationService;
         this.isLoggedIn = false;
-        this.router.config.unshift({ path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"] }, { path: 'user', component: _user_user_component__WEBPACK_IMPORTED_MODULE_2__["UserComponent"] }, { path: 'admin', component: _admin_admin_component__WEBPACK_IMPORTED_MODULE_3__["AdminComponent"] }, { path: 'atelier', component: _atelier_atelier_component__WEBPACK_IMPORTED_MODULE_5__["AtelierComponent"] });
+        this.router.config.unshift(
+        /* { path: 'login', component: LoginComponent },*/
+        /* { path: 'user', component: UserComponent },
+         { path: 'admin', component: AdminComponent },*/
+        { path: 'atelier', component: _atelier_atelier_component__WEBPACK_IMPORTED_MODULE_2__["AtelierComponent"] });
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -206,13 +207,21 @@ var AppComponent = /** @class */ (function () {
         this.navbarService.updateLoginStatus(false);
         this.router.navigate(['home']);
     };
+    AppComponent.prototype.verfiyLogin = function () {
+        this.authenticationService.loginAdmin();
+        /*if (this.authenticationService.verification(this.username, this.password)) {
+          this.loginAdmin();
+        } else{
+          this.loginUser()
+        }*/
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services_navbar_service__WEBPACK_IMPORTED_MODULE_6__["NavbarService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services_navbar_service__WEBPACK_IMPORTED_MODULE_3__["NavbarService"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -311,7 +320,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  atelier works!\n</p>\n\nSelect images: <input type=\"file\" name=\"img\" (change)=\"handleFileInput2($event.target.files)\" multiple> &nbsp;\nNombre de participant : {{tabPlayerInfos?.length}} &nbsp;<button (click)=\"onClickMe()\">Trie moi !</button><BR>\n\n<div style=\"margin: 30px 30px 30px 30px\">\n  <button (click)=\"getmailList()\">Recuperer les mails</button><br>\n  <textarea rows=\"15\" cols=\"180\" ng *ngIf=\"emails.length > 0\">{{emails?.join('; ')}}</textarea>\n</div>\n\n<div style=\"margin: 30px 30px 30px 30px\">\n    <button (click)=\"viewAllInformation()\">Voir les information brutes</button><br>\n    <table *ngIf=\"isViewInformation\" style=\"margin: 30px 0 0 0\">\n        <thead>\n            <tr style=\"border:1px solid black\">\n                <th style=\"border:1px solid black\">N° Licence</th>\n                <th style=\"border:1px solid black\" >Prénom</th>\n                <th style=\"border:1px solid black\">Nom</th>\n                <th style=\"border:1px solid black\">Circuit</th>\n                <th style=\"border:1px solid black\">Catégorie</th>\n                <th style=\"border:1px solid black\">Nbr round</th>\n                <th style=\"border:1px solid black\">Email</th>\n                <th style=\"border:1px solid black\">Téléphone</th>\n                <th style=\"border:1px solid black\">Commentaire</th>\n                <th style=\"border:1px solid black\">Date inscription</th>\n            </tr>\n        </thead>\n        <tbody style=\"border:1px solid black\">\n            <tr *ngFor=\"let hero of tabPlayerInfos\" style=\"border:1px solid black\">\n                <td style=\"border:1px solid black\">{{hero.ffgNumber}} &nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.prenom}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.nom}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.circuit}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.categorie}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.nbrRoundThisYear}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.email}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.phoneNumber}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.comment}}&nbsp;</td>\n                <td style=\"border:1px solid black\" >{{hero.date}}&nbsp;</td>\n            </tr>\n        </tbody>\n      </table>\n  </div>\n    \n\n<button (click)=\"printDiv('printableArea1')\">print page 1!</button>\n<button (click)=\"newpagePrintage('printableArea1')\">print page 1*!</button>\n<div id=\"printableArea1\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList1)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList1)></app-header-tableau>\n      </div>\n</div>\n<br><br>\n<hr>\n<button (click)=\"printDiv('printableArea2')\" *ngIf=\"tabPlayerInfosList2.length > 0\">print page 2!</button>\n<button (click)=\"newpagePrintage('printableArea2')\" *ngIf=\"tabPlayerInfosList2.length > 0\">print page 2*!</button>\n\n<div  id=\"printableArea2\"\n      *ngIf=\"tabPlayerInfosList2.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList2)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList2)></app-header-tableau>\n      </div>\n</div>\n\n<button (click)=\"printDiv('printableArea3')\" *ngIf=\"tabPlayerInfosList3.length > 0\">print page 3!</button>\n<button (click)=\"newpagePrintage('printableArea3')\" *ngIf=\"tabPlayerInfosList3.length > 0\">print page 3*!</button>\n\n<div  id=\"printableArea3\"\n      *ngIf=\"tabPlayerInfosList3.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList3)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList3)></app-header-tableau>\n      </div>\n</div>\n\n\n<button (click)=\"printDiv('printableArea4')\" *ngIf=\"tabPlayerInfosList4.length > 0\">print page 3!</button>\n<button (click)=\"newpagePrintage('printableArea4')\" *ngIf=\"tabPlayerInfosList4.length > 0\">print page 3*!</button>\n\n<div  id=\"printableArea4\"\n      *ngIf=\"tabPlayerInfosList4.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList4)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList4)></app-header-tableau>\n      </div>\n</div>\n\n\n\n<!-- <button (click)=\"printDiv('printableArea3')\">print a div!</button>\n<div id=\"printableArea3\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n                         \n      <app-header-tableau [currentcategorie]=\"10\" \n                          [printAreaBottom]=div1BottomValue\n                          [tabPlayersInfos]=getElementListByCategorie(10)\n                          [printHeader]=true></app-header-tableau>    \n\n      <app-header-tableau [currentcategorie]=\"8\" \n                          [printAreaBottom]=div1BottomValue\n                          [tabPlayersInfos]=getElementListByCategorie(8)\n                          [printHeader]=false></app-header-tableau> \n \n      \n  \n</div> \n\n\n<table>\n    <thead>\n        <tr style=\"border:1px solid black\">\n            <th style=\"border:1px solid black\">N° Licence</th>\n            <th style=\"border:1px solid black\" >Prénom</th>\n            <th style=\"border:1px solid black\">Nom</th>\n            <th style=\"border:1px solid black\">Circuit</th>\n            <th style=\"border:1px solid black\">Catégorie</th>\n            <th style=\"border:1px solid black\">Nbr round</th>\n            <th style=\"border:1px solid black\">Email</th>\n            <th style=\"border:1px solid black\">Téléphone</th>\n            <th style=\"border:1px solid black\">Commentaire</th>\n            <th style=\"border:1px solid black\">Date inscription</th>\n        </tr>\n    </thead>\n    <tbody style=\"border:1px solid black\">\n        <tr *ngFor=\"let hero of tabPlayerInfos\" style=\"border:1px solid black\">\n            <td style=\"border:1px solid black\">{{hero.ffgNumber}} &nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.prenom}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.nom}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.circuit}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.categorie}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.nbrRoundThisYear}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.email}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.phoneNumber}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.comment}}&nbsp;</td>\n            <td style=\"border:1px solid black\" >{{hero.date}}&nbsp;</td>\n        </tr>\n    </tbody>\n  </table>\n\n-->\n<hr>\nImpression des cartes atelier\n<hr>\n\n<!-- \n<button (click)=\"printDiv('printableArea1')\">print a div!</button>\n<div id=\"printableArea1\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n    \n  <table  style=\"width: 100%;margin-top: 30px;\"> \n     \n    <tbody >\n      <tr style=\"text-align: center;\">\n        <td style=\"width: 50%;\">&nbsp;<img width=\"250\" src=\"assets/img/logoMistral.png\">&nbsp;</td>\n        <td style=\"width: 50%; text-align: center;\">\n            <p><span style=\"text-decoration: underline;\"><strong> Atelier </strong></span></p>\n            <p><strong>&nbsp;Stadium&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" />&nbsp;<strong>&nbsp;Putting&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" /></p>\n            <p><strong>Approche&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" />&nbsp;<strong>&nbsp;Trackman&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" /></p>\n        </td> \n      </tr>\n      <tr>\n          <td colspan=\"2\">&nbsp;</td> \n      </tr> \n      <tr>\n      <td colspan=\"2\">\n        <table style=\"width: 90%; margin-left: auto; margin-right: auto;\">\n             <tbody *ngFor=\"let currentCategorie of categorie\">\n\n                  <tr style=\"border:1px solid black;text-align: center;\">\n                      <th style=\"border:1px solid black ; text-align: center;\">U{{ currentCategorie}}</th>\n                      <th style=\"border:1px solid black; text-align: center;\" colspan=\"3\">Score</th>\n                      <th style=\"border:1px solid black; text-align: center;\">Classement</th>\n                  </tr>\n                  <tr *ngFor=\"let hero of getElementListByCategorie(currentCategorie)\" \n                      [attr.id]=\"hero.ffgNumber\"\n                      style=\"border:1px solid black\">\n                    <td style=\"border:1px solid black; width: 40%;\" >&nbsp;{{hero.nom}} {{hero.prenom}}&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%;\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%;\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 20%;\">&nbsp;&nbsp;{{controleDivPosition('printableArea1', hero.ffgNumber)}}</td>\n                  </tr>\n                  <tr>\n                      <td style=\"border:1px solid black;\" colspan=\"5\">&nbsp;</td> \n                  </tr>\n            </tbody>\n\n          </table>  \n        </td>\n      </tr>\n    </tbody>\n  </table> \n</div>-->\n\n\n"
+module.exports = "<p>\n  Impression des cartes atelier!\n</p>\n<div>\n  <div>Select images:&nbsp;</div>\n  <div> <input type=\"file\" name=\"img\" (change)=\"handleFileInput2($event.target.files)\" multiple> </div>\n</div>\n \nNombre de fiche joueur : {{tabPlayerInfos?.length}} &nbsp;\n<button (click)=\"removeDouble()\">Suppression des doubles par N°license</button>&nbsp;\n<button (click)=\"onClickMe()\">Edition du document par catégorie d'age !</button>\n<button (click)=\"ngOnInit()\">Raz de la page</button><BR>\n\n<div style=\"margin: 30px 30px 30px 30px\">\n  <button (click)=\"getmailList()\">Recuperer les mails</button><br>\n  <textarea rows=\"15\" cols=\"180\" ng *ngIf=\"emails.length > 0\">{{emails?.join('; ')}}</textarea>\n</div>\n\n<div style=\"margin: 30px 30px 30px 30px\">\n    <button (click)=\"viewAllInformation()\">Voir les information brutes</button><br>\n    <table *ngIf=\"isViewInformation\" style=\"margin: 30px 0 0 0\">\n        <thead>\n            <tr style=\"border:1px solid black\">\n                <th style=\"border:1px solid black\">N° Licence</th>\n                <th style=\"border:1px solid black\" >Prénom</th>\n                <th style=\"border:1px solid black\">Nom</th>\n                <th style=\"border:1px solid black\">Circuit</th>\n                <th style=\"border:1px solid black\">Catégorie</th>\n                <th style=\"border:1px solid black\">Nbr round</th>\n                <th style=\"border:1px solid black\">Email</th>\n                <th style=\"border:1px solid black\">Téléphone</th>\n                <th style=\"border:1px solid black\">Commentaire</th>\n                <th style=\"border:1px solid black\">Date inscription</th>\n            </tr>\n        </thead>\n        <tbody style=\"border:1px solid black\">\n            <tr *ngFor=\"let hero of tabPlayerInfos\" style=\"border:1px solid black\">\n                <td style=\"border:1px solid black\">{{hero.ffgNumber}} &nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.prenom}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.nom}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.circuit}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.categorie}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.nbrRoundThisYear}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.email}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.phoneNumber}}&nbsp;</td>\n                <td style=\"border:1px solid black\">{{hero.comment}}&nbsp;</td>\n                <td style=\"border:1px solid black\" >{{hero.date}}&nbsp;</td>\n            </tr>\n        </tbody>\n      </table>\n  </div>\n    \n\n<button (click)=\"printDiv('printableArea1')\">print page 1!</button>\n<button (click)=\"newpagePrintage('printableArea1')\">print page 1*!</button>\n<div id=\"printableArea1\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList1)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList1)></app-header-tableau>\n      </div>\n</div>\n<br><br>\n<hr>\n<button (click)=\"printDiv('printableArea2')\" *ngIf=\"tabPlayerInfosList2.length > 0\">print page 2!</button>\n<button (click)=\"newpagePrintage('printableArea2')\" *ngIf=\"tabPlayerInfosList2.length > 0\">print page 2*!</button>\n\n<div  id=\"printableArea2\"\n      *ngIf=\"tabPlayerInfosList2.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList2)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList2)></app-header-tableau>\n      </div>\n</div>\n\n<button (click)=\"printDiv('printableArea3')\" *ngIf=\"tabPlayerInfosList3.length > 0\">print page 3!</button>\n<button (click)=\"newpagePrintage('printableArea3')\" *ngIf=\"tabPlayerInfosList3.length > 0\">print page 3*!</button>\n\n<div  id=\"printableArea3\"\n      *ngIf=\"tabPlayerInfosList3.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList3)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList3)></app-header-tableau>\n      </div>\n</div>\n\n\n<button (click)=\"printDiv('printableArea4')\" *ngIf=\"tabPlayerInfosList4.length > 0\">print page 3!</button>\n<button (click)=\"newpagePrintage('printableArea4')\" *ngIf=\"tabPlayerInfosList4.length > 0\">print page 3*!</button>\n\n<div  id=\"printableArea4\"\n      *ngIf=\"tabPlayerInfosList4.length > 0\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n      <div *ngFor=\"let item of categorie\">\n          <app-header-tableau [currentcategorie]=\"item\" \n                              [tabPlayersInfos]=getElementListByCategorie(item,tabPlayerInfosList4)\n                              [printHeader]=defineifHeader(item,tabPlayerInfosList4)></app-header-tableau>\n      </div>\n</div>\n\n\n\n<!-- <button (click)=\"printDiv('printableArea3')\">print a div!</button>\n<div id=\"printableArea3\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n                         \n      <app-header-tableau [currentcategorie]=\"10\" \n                          [printAreaBottom]=div1BottomValue\n                          [tabPlayersInfos]=getElementListByCategorie(10)\n                          [printHeader]=true></app-header-tableau>    \n\n      <app-header-tableau [currentcategorie]=\"8\" \n                          [printAreaBottom]=div1BottomValue\n                          [tabPlayersInfos]=getElementListByCategorie(8)\n                          [printHeader]=false></app-header-tableau> \n \n      \n  \n</div> \n\n\n<table>\n    <thead>\n        <tr style=\"border:1px solid black\">\n            <th style=\"border:1px solid black\">N° Licence</th>\n            <th style=\"border:1px solid black\" >Prénom</th>\n            <th style=\"border:1px solid black\">Nom</th>\n            <th style=\"border:1px solid black\">Circuit</th>\n            <th style=\"border:1px solid black\">Catégorie</th>\n            <th style=\"border:1px solid black\">Nbr round</th>\n            <th style=\"border:1px solid black\">Email</th>\n            <th style=\"border:1px solid black\">Téléphone</th>\n            <th style=\"border:1px solid black\">Commentaire</th>\n            <th style=\"border:1px solid black\">Date inscription</th>\n        </tr>\n    </thead>\n    <tbody style=\"border:1px solid black\">\n        <tr *ngFor=\"let hero of tabPlayerInfos\" style=\"border:1px solid black\">\n            <td style=\"border:1px solid black\">{{hero.ffgNumber}} &nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.prenom}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.nom}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.circuit}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.categorie}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.nbrRoundThisYear}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.email}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.phoneNumber}}&nbsp;</td>\n            <td style=\"border:1px solid black\">{{hero.comment}}&nbsp;</td>\n            <td style=\"border:1px solid black\" >{{hero.date}}&nbsp;</td>\n        </tr>\n    </tbody>\n  </table>\n\n-->\n<hr>\n\n<hr>\n\n<!-- \n<button (click)=\"printDiv('printableArea1')\">print a div!</button>\n<div id=\"printableArea1\"\n      style=\"width: 210mm; height: 297mm; margin-left: auto;margin-right: auto; border-color: coral; border-style: solid; \">\n    \n  <table  style=\"width: 100%;margin-top: 30px;\"> \n     \n    <tbody >\n      <tr style=\"text-align: center;\">\n        <td style=\"width: 50%;\">&nbsp;<img width=\"250\" src=\"assets/img/logoMistral.png\">&nbsp;</td>\n        <td style=\"width: 50%; text-align: center;\">\n            <p><span style=\"text-decoration: underline;\"><strong> Atelier </strong></span></p>\n            <p><strong>&nbsp;Stadium&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" />&nbsp;<strong>&nbsp;Putting&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" /></p>\n            <p><strong>Approche&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" />&nbsp;<strong>&nbsp;Trackman&nbsp;</strong> <input id=\"scales\" name=\"scales\" type=\"checkbox\" /></p>\n        </td> \n      </tr>\n      <tr>\n          <td colspan=\"2\">&nbsp;</td> \n      </tr> \n      <tr>\n      <td colspan=\"2\">\n        <table style=\"width: 90%; margin-left: auto; margin-right: auto;\">\n             <tbody *ngFor=\"let currentCategorie of categorie\">\n\n                  <tr style=\"border:1px solid black;text-align: center;\">\n                      <th style=\"border:1px solid black ; text-align: center;\">U{{ currentCategorie}}</th>\n                      <th style=\"border:1px solid black; text-align: center;\" colspan=\"3\">Score</th>\n                      <th style=\"border:1px solid black; text-align: center;\">Classement</th>\n                  </tr>\n                  <tr *ngFor=\"let hero of getElementListByCategorie(currentCategorie)\" \n                      [attr.id]=\"hero.ffgNumber\"\n                      style=\"border:1px solid black\">\n                    <td style=\"border:1px solid black; width: 40%;\" >&nbsp;{{hero.nom}} {{hero.prenom}}&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%;\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%;\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 15%\">&nbsp;&nbsp;</td>\n                    <td style=\"border:1px solid black; width: 20%;\">&nbsp;&nbsp;{{controleDivPosition('printableArea1', hero.ffgNumber)}}</td>\n                  </tr>\n                  <tr>\n                      <td style=\"border:1px solid black;\" colspan=\"5\">&nbsp;</td> \n                  </tr>\n            </tbody>\n\n          </table>  \n        </td>\n      </tr>\n    </tbody>\n  </table> \n</div>-->\n\n\n"
 
 /***/ }),
 
@@ -361,6 +370,7 @@ var AtelierComponent = /** @class */ (function () {
     }
     AtelierComponent.prototype.ngOnInit = function () {
     };
+    AtelierComponent.prototype.reloadComponent = function () { };
     AtelierComponent.prototype.defineTheContexte = function (categorie, arrayList) {
         var listeElementTraiter = this.getElementListByCategorie(categorie, arrayList);
         var nbElementTraiter = listeElementTraiter.length;
@@ -422,19 +432,27 @@ var AtelierComponent = /** @class */ (function () {
     };
     /* force replace encoding error */
     AtelierComponent.prototype.stringReplaceSpecial = function (maChaine) {
-        maChaine = maChaine.replace('�', 'é');
+        if (maChaine) {
+            maChaine = maChaine.replace('�', 'é');
+        }
         return maChaine;
     };
     /* capitablise string parameter */
     AtelierComponent.prototype.stringToLowerCase = function (maChaine) {
-        maChaine = maChaine.toLowerCase();
-        var nameCapitalized = maChaine.charAt(0).toUpperCase() + maChaine.slice(1);
-        return nameCapitalized;
+        if (maChaine) {
+            maChaine = maChaine.toLowerCase();
+            var nameCapitalized = maChaine.charAt(0).toUpperCase() + maChaine.slice(1);
+            return nameCapitalized;
+        }
+        return maChaine;
     };
     /* uppercas string parameter */
     AtelierComponent.prototype.stringToUpperCase = function (maChaine) {
-        var nameCapitalized = maChaine.toUpperCase();
-        return nameCapitalized;
+        if (maChaine) {
+            var nameCapitalized = maChaine.toUpperCase();
+            return nameCapitalized;
+        }
+        return maChaine;
     };
     AtelierComponent.prototype.getElementListByCategorie = function (categorie, listeArray) {
         return listeArray.filter(function (item) {
@@ -494,6 +512,16 @@ var AtelierComponent = /** @class */ (function () {
         }
         return fixedstring;
     };
+    AtelierComponent.prototype.removeDouble = function () {
+        this.tabPlayerInfos = this.getUnique(this.tabPlayerInfos, 'ffgNumber');
+    };
+    AtelierComponent.prototype.getUnique = function (arr, comp) {
+        var unique = arr
+            .map(function (e) { return e[comp]; })
+            .map(function (e, i, final) { return final.indexOf(e) === i && i; })
+            .filter(function (e) { return arr[e]; }).map(function (e) { return arr[e]; });
+        return unique;
+    };
     AtelierComponent.prototype.printDiv = function (divName) {
         var printContents = document.getElementById(divName).innerHTML;
         var originalContents = document.body.innerHTML;
@@ -502,6 +530,7 @@ var AtelierComponent = /** @class */ (function () {
         document.body.innerHTML = originalContents;
     };
     AtelierComponent.prototype.getmailList = function () {
+        this.emails = [];
         for (var propt in this.tabPlayerInfos) {
             console.log(propt + ': ' + this.tabPlayerInfos[propt]);
             this.emails.push(this.tabPlayerInfos[propt].email);
@@ -685,7 +714,7 @@ var HomeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "/* Bordered form */\nform {\n    border: 3px solid #f1f1f1;\n  }\n/* Full-width inputs */\ninput[type=text], input[type=password] {\n    width: 100%;\n    padding: 12px 20px;\n    margin: 8px 0;\n    display: inline-block;\n    border: 1px solid #ccc;\n    box-sizing: border-box;\n  }\n/* Set a style for all buttons */\nbutton {\n    background-color: darkblue;\n    color: white;\n    padding: 14px 20px;\n    margin: 8px 0;\n    border: none;\n    cursor: pointer;\n    width: 100%;\n  }\n/* Add a hover effect for buttons */\nbutton:hover {\n    opacity: 0.8;\n  }\n/* Extra style for the cancel button (red) */\n.cancelbtn {\n    width: auto;\n    padding: 10px 18px;\n    background-color: #f44336;\n  }\n/* Center the avatar image inside this container */\n.imgcontainer {\n    text-align: center;\n    margin: 24px 0 12px 0;\n  }\n/* Avatar image */\nimg.avatar {\n    width: 40%;\n    border-radius: 50%;\n  }\n/* Add padding to containers */\n.container {\n    padding: 16px;\n  }\n/* The \"Forgot password\" text */\nspan.psw {\n    float: right;\n    padding-top: 16px;\n  }\n/* Change styles for span and cancel button on extra small screens */\n@media screen and (max-width: 300px) {\n    span.psw {\n      display: block;\n      float: none;\n    }\n    .cancelbtn {\n      width: 100%;\n    }\n  }"
 
 /***/ }),
 
@@ -696,7 +725,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"isLoggedIn; else loggedOut\">\n  Logged in as {{role}}.\n</div>\n\n<ng-template #loggedOut>\n  <button class=\"btn btn-secondary\" (click)=\"loginUser()\">Login as User</button>\n  <button class=\"btn btn-primary\" (click)=\"loginAdmin()\">Login as Admin</button>\n  <hr />\n  <p>Don't have an account?</p>\n  <a href=\"signup\" class=\"btn btn-success\">Sign Up</a>\n</ng-template>"
+module.exports = "<div *ngIf=\"isLoggedIn; else loggedOut\">\n  Logged in as {{role}}.\n</div>\n\n<ng-template #loggedOut>\n\n  \n    <div class=\"container\">\n      <label for=\"username\"><b>Username</b></label>\n      <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\n  \n      <label for=\"password\"><b>Password</b></label>\n      <input type=\"password\" placeholder=\"Enter Password\" name=\"password\" required>\n  \n      <!-- <button type=\"submit\">Login</button> -->\n      <button class=\"btn btn-primary\" (click)=\"verfiyLogin()\">Login as Admin</button>\n      <label>\n        <input type=\"checkbox\" checked=\"checked\" name=\"remember\"> Remember me\n      </label>\n    </div>\n   \n\n  <!-- <button class=\"btn btn-secondary\" (click)=\"loginUser()\">Login as User</button>\n  <button class=\"btn btn-primary\" (click)=\"loginAdmin()\">Login as Admin</button>\n  <hr />\n  <p>Don't have an account?</p>\n  <a href=\"signup\" class=\"btn btn-success\">Sign Up</a> -->\n</ng-template>\n"
 
 /***/ }),
 
@@ -712,6 +741,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/navbar.service */ "./src/app/services/navbar.service.ts");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -723,15 +753,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(navbarService) {
+    function LoginComponent(navbarService, authenticationService) {
         var _this = this;
         this.navbarService = navbarService;
+        this.authenticationService = authenticationService;
         this.isLoggedIn = false;
         this.role = '';
+        this.username = undefined;
+        this.password = undefined;
         this.navbarService.getLoginStatus().subscribe(function (status) { return _this.isLoggedIn = status; });
     }
     LoginComponent.prototype.ngOnInit = function () {
+    };
+    LoginComponent.prototype.verfiyLogin = function () {
+        this.loginAdmin();
+        /*if (this.authenticationService.verification(this.username, this.password)) {
+          this.loginAdmin();
+        } else{
+          this.loginUser()
+        }*/
     };
     LoginComponent.prototype.loginUser = function () {
         this.navbarService.updateNavAfterAuth('user');
@@ -749,7 +791,7 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
-        __metadata("design:paramtypes", [_services_navbar_service__WEBPACK_IMPORTED_MODULE_1__["NavbarService"]])
+        __metadata("design:paramtypes", [_services_navbar_service__WEBPACK_IMPORTED_MODULE_1__["NavbarService"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"]])
     ], LoginComponent);
     return LoginComponent;
 }());
@@ -831,6 +873,66 @@ var PlayerInfo = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/authentication.service.ts":
+/*!****************************************************!*\
+  !*** ./src/app/services/authentication.service.ts ***!
+  \****************************************************/
+/*! exports provided: AuthenticationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_navbar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/navbar.service */ "./src/app/services/navbar.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AuthenticationService = /** @class */ (function () {
+    function AuthenticationService(navbarService) {
+        var _this = this;
+        this.navbarService = navbarService;
+        this.isLoggedIn = false;
+        this.role = '';
+        this.navbarService.getLoginStatus().subscribe(function (status) { return _this.isLoggedIn = status; });
+    }
+    AuthenticationService.prototype.verification = function (user, password) {
+        if (user == "btmistram" && password == "root") {
+            return true;
+        }
+        return false;
+    };
+    AuthenticationService.prototype.loginUser = function () {
+        this.navbarService.updateNavAfterAuth('user');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'user';
+    };
+    AuthenticationService.prototype.loginAdmin = function () {
+        this.navbarService.updateNavAfterAuth('admin');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'admin';
+    };
+    AuthenticationService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_services_navbar_service__WEBPACK_IMPORTED_MODULE_1__["NavbarService"]])
+    ], AuthenticationService);
+    return AuthenticationService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/navbar.service.ts":
 /*!********************************************!*\
   !*** ./src/app/services/navbar.service.ts ***!
@@ -858,7 +960,7 @@ var NavbarService = /** @class */ (function () {
     function NavbarService() {
         this.links = new Array();
         this.isLoggedIn = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
-        this.addItem({ text: 'Login', path: 'login' });
+        //this.addItem({ text: 'Login', path: 'login' });
         this.isLoggedIn.next(false);
     }
     NavbarService.prototype.getLinks = function () {
@@ -871,11 +973,11 @@ var NavbarService = /** @class */ (function () {
         this.isLoggedIn.next(status);
         if (!status) {
             this.clearAllItems();
-            this.addItem({ text: 'Login', path: 'login' });
+            //this.addItem({ text: 'Login', path: 'login' });
         }
     };
     NavbarService.prototype.updateNavAfterAuth = function (role) {
-        this.removeItem({ text: 'Login' });
+        //this.removeItem({ text: 'Login' });
         if (role === 'user') {
             this.addItem({ text: 'User Board', path: 'user' });
         }
